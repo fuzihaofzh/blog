@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fuzihaofzh.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+<meta property="og:type" content="website">
+<meta property="og:title" content="切问录">
+<meta property="og:url" content="http://fuzihaofzh.github.io/blog/index.html">
+<meta property="og:site_name" content="切问录">
+<meta property="og:description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Z.H. Fu">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://fuzihaofzh.github.io/blog/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title>切问录</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">切问录</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2023/09/03/Median-of-Means-Method-A-Robust-Approach-to-Estimating-the-Mean/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2023/09/03/Median-of-Means-Method-A-Robust-Approach-to-Estimating-the-Mean/" class="post-title-link" itemprop="url">Median of Means Method: A Robust Approach to Estimating the Mean</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-09-03 18:24:47" itemprop="dateCreated datePublished" datetime="2023-09-03T18:24:47+01:00">2023-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-04 11:07:06" itemprop="dateModified" datetime="2023-09-04T11:07:06+01:00">2023-09-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/High-Dimensional-Probability/" itemprop="url" rel="index"><span itemprop="name">High-Dimensional Probability</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2023/09/03/Median-of-Means-Method-A-Robust-Approach-to-Estimating-the-Mean/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/09/03/Median-of-Means-Method-A-Robust-Approach-to-Estimating-the-Mean/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>8 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>Statistics is a field that empowers us to transform raw data into insightful information. Among the most commonly used techniques in statistics is the calculation of the mean, or the average. However, when we aim to minimize the impact of outliers or extreme values, we can employ the Median of Means method. This statistical approach provides a more robust estimate of a dataset’s central tendency. Let’s delve deeper into understanding this method.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2023/09/03/Median-of-Means-Method-A-Robust-Approach-to-Estimating-the-Mean/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2023/09/02/Overcoming-the-Dimensionality-Problem-with-Monte-Carlo-Integration/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2023/09/02/Overcoming-the-Dimensionality-Problem-with-Monte-Carlo-Integration/" class="post-title-link" itemprop="url">Overcoming the Dimensionality Problem with Monte Carlo Integration</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-09-02 23:45:18" itemprop="dateCreated datePublished" datetime="2023-09-02T23:45:18+01:00">2023-09-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-04 11:01:41" itemprop="dateModified" datetime="2023-09-04T11:01:41+01:00">2023-09-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/High-Dimensional-Probability/" itemprop="url" rel="index"><span itemprop="name">High-Dimensional Probability</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2023/09/02/Overcoming-the-Dimensionality-Problem-with-Monte-Carlo-Integration/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/09/02/Overcoming-the-Dimensionality-Problem-with-Monte-Carlo-Integration/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>Numerical integration plays a pivotal role in numerous scientific computations, with applications spanning from physics to finance. Conventional numerical integration techniques, such as Simpson’s rule or the trapezoidal rule, perform well for straightforward, low-dimensional integrals. However, these classical methods falter when applied to high-dimensional spaces, a challenge addressed by Monte Carlo integration, which offers a robust and efficient resolution to the dimensionality problem.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2023/09/02/Overcoming-the-Dimensionality-Problem-with-Monte-Carlo-Integration/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/" class="post-title-link" itemprop="url">Harnessing the Power of C++ STL in Python with CSTL</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-04-03 17:15:56" itemprop="dateCreated datePublished" datetime="2023-04-03T17:15:56+01:00">2023-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>627</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<h1 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h1>
+<p>Python, with its simplicity and readability, has become the language of choice for many developers. However, it has its limitations, especially when it comes to memory management in multiprocessing applications. The Copy-on-Write (CoW) issue it faces often leads to memory leakage, causing the program to consume all available memory and eventually crash.</p>
+<p>CSTL is a powerful tool that brings the efficiency of the C++ Standard Template Library (STL) to Python. It provides Python developers with a way to leverage the efficiency of C++ STL containers, such as <code>std::vector</code>, <code>std::unordered_map</code>, and <code>std::unordered_set</code>, replacing their Python counterparts (<code>list</code>, <code>dict</code>, and <code>set</code>).
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2022/11/24/Sparse-Fine-tuned-Model-An-Unified-View-of-Parameter-Efficient-Models/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2022/11/24/Sparse-Fine-tuned-Model-An-Unified-View-of-Parameter-Efficient-Models/" class="post-title-link" itemprop="url">Sparse Fine-tuned Model -- An Unified View of Parameter-Efficient Models</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-11-24 10:40:48" itemprop="dateCreated datePublished" datetime="2022-11-24T10:40:48+00:00">2022-11-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-04 11:11:22" itemprop="dateModified" datetime="2023-09-04T11:11:22+01:00">2023-09-04</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2022/11/24/Sparse-Fine-tuned-Model-An-Unified-View-of-Parameter-Efficient-Models/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/11/24/Sparse-Fine-tuned-Model-An-Unified-View-of-Parameter-Efficient-Models/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>In the realm of machine learning, fine-tuning pre-trained models is a common practice. However, it often requires a significant amount of parameters and computational resources. To address this, researchers have proposed various parameter-efficient models, each with their own unique approach to fine-tuning. In this blog post, we will be discussing a unified view of these models, focusing on how they align with the definition of a sparse fine-tuned model. This view is a brief explanation of the study “<a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2211.15583.pdf">On the effectiveness of parameter-efficient fine-tuning</a>” by Zihao Fu et al. <sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>, can provide a unified understanding of parameter-efficient models and can be instrumental in further analysis and research.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2022/11/24/Sparse-Fine-tuned-Model-An-Unified-View-of-Parameter-Efficient-Models/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2022/03/16/Unraveling-Implicit-Gradient-Regularization-in-Deep-Learning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2022/03/16/Unraveling-Implicit-Gradient-Regularization-in-Deep-Learning/" class="post-title-link" itemprop="url">Unraveling Implicit Gradient Regularization in Deep Learning</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-16 21:00:55" itemprop="dateCreated datePublished" datetime="2022-03-16T21:00:55+00:00">2022-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2022/03/16/Unraveling-Implicit-Gradient-Regularization-in-Deep-Learning/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/03/16/Unraveling-Implicit-Gradient-Regularization-in-Deep-Learning/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>844</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>Deep learning, a subfield of artificial intelligence (AI), has been a topic of great interest for many years. Among its various intriguing aspects, the role of gradient descent, a fundamental algorithm employed for training deep learning models, has garnered considerable attention. A recent paper titled “<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2009.11162">Implicit Gradient Regularization</a>” by researchers David G.T. Barrett and Benoit Dherin from DeepMind and Google Dublin, respectively, provides an enlightening exploration of how gradient descent implicitly regularizes models. This phenomenon is referred to as Implicit Gradient Regularization (IGR).<br />
+In this blog post, we will unpack the concept of IGR, discuss its core principles, and explore its implications on deep learning models.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2022/03/16/Unraveling-Implicit-Gradient-Regularization-in-Deep-Learning/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2021/08/23/Copy-Bib-from-Google-Scholar-with-Only-One-Click/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2021/08/23/Copy-Bib-from-Google-Scholar-with-Only-One-Click/" class="post-title-link" itemprop="url">Copy Bib from Google Scholar with Only One Click</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-08-23 19:33:57" itemprop="dateCreated datePublished" datetime="2021-08-23T19:33:57+01:00">2021-08-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2021/08/23/Copy-Bib-from-Google-Scholar-with-Only-One-Click/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/08/23/Copy-Bib-from-Google-Scholar-with-Only-One-Click/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>509</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>Copying bibliography information from Google Scholar entries typically involves multiple steps and clicks. It’s a process that can be time-consuming and often disrupts the flow of your research. Recognizing this challenge, we present the <a target="_blank" rel="noopener" href="https://greasyfork.org/en/scripts/429933-google-scholar-oneclick-copy-bib">Google Scholar Oneclick Copy Bib</a>, a Tampermonkey plugin that simplifies this process down to a single click.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2021/08/23/Copy-Bib-from-Google-Scholar-with-Only-One-Click/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2020/06/06/From-Classical-Mechanics-to-Hamiltonian-Mechanics/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2020/06/06/From-Classical-Mechanics-to-Hamiltonian-Mechanics/" class="post-title-link" itemprop="url">From Classical Mechanics to Hamiltonian Mechanics</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-06 15:15:06" itemprop="dateCreated datePublished" datetime="2020-06-06T15:15:06+01:00">2020-06-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2020/06/06/From-Classical-Mechanics-to-Hamiltonian-Mechanics/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/06/From-Classical-Mechanics-to-Hamiltonian-Mechanics/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>5 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>In the world of classical mechanics, the Newtonian framework, while foundational, encounters limitations when dealing with complex systems due to its intricate force analysis. To address these challenges, advanced systems like Lagrangian and Hamiltonian mechanics have been developed. These innovative methodologies shift the focus from forces to energy and phase space, respectively, providing a more holistic and simplified approach to understanding physical systems. In this article, we will delve into the intricacies of Lagrangian and Hamiltonian mechanics, exploring how they resolve the complexities of Newtonian mechanics and the unique insights they bring to our comprehension of the dynamics of the physical world.
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2020/06/06/From-Classical-Mechanics-to-Hamiltonian-Mechanics/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2019/09/07/Install-Ubuntu-on-QEMU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2019/09/07/Install-Ubuntu-on-QEMU/" class="post-title-link" itemprop="url">Install Ubuntu on QEMU</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-07 15:09:24" itemprop="dateCreated datePublished" datetime="2019-09-07T15:09:24+01:00">2019-09-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2019/09/07/Install-Ubuntu-on-QEMU/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/07/Install-Ubuntu-on-QEMU/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>463</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>In this article, we will show how to install qemu and install an ubuntu system on it.</p>
+<h3 id="qemu-install"><a class="markdownIt-Anchor" href="#qemu-install"></a> qemu install</h3>
+<p>you can directly install with brew or directly compile to code. The code is well written and I haven’t encounter some weird problems.</p>
+<h3 id="download-image"><a class="markdownIt-Anchor" href="#download-image"></a> Download Image</h3>
+<p>Though you can install the system just the same as installing an ordinary, here, we strongly suggest you directly use the precompiled official image which saves a lot of time. Just download
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/09/07/Install-Ubuntu-on-QEMU/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2019/03/27/Struggling-in-importing-wikipedia-into-Elasticsearch-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2019/03/27/Struggling-in-importing-wikipedia-into-Elasticsearch-2/" class="post-title-link" itemprop="url">Struggling in importing wikipedia into Elasticsearch (2)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-03-27 15:03:18" itemprop="dateCreated datePublished" datetime="2019-03-27T15:03:18+00:00">2019-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2019/03/27/Struggling-in-importing-wikipedia-into-Elasticsearch-2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/27/Struggling-in-importing-wikipedia-into-Elasticsearch-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>581</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>We have introduced many tools and tricks in my previous post Struggling in importing wikipedia into Elasticsearch. In that post, we successfully import Wikipedia into elasticsearch with logstash. However, things are not settled. The biggest problem of logstash is that it’s extremely user-unfriendly. Even filter an html tag will waste you half days searching google how to do modify the config file. It made very annoy sine I totally forget all the tricks of logstash. Therefore, we will explore how to use python to import the Wikipedia into elasticsearch directly.</p>
+<p>The first step is to convert the Wikipedia source file into a more formatted one. I choose to use <a target="_blank" rel="noopener" href="https://radimrehurek.com/gensim/scripts/segment_wiki.html">gensim</a>’s Wikipedia tool to do this. It can be run like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m gensim.scripts.segment_wiki -i -f enwiki-20190320-pages-articles-multistream.xml.bz2 -o enwiki-20190320-pages-articles-multistream.json.gz -w 100</span><br></pre></td></tr></table></figure>
+<p>It will convert the latest
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2019/03/27/Struggling-in-importing-wikipedia-into-Elasticsearch-2/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2018/07/28/%E6%95%B4%E6%95%B0%E8%A7%84%E5%88%92%E5%BB%BA%E6%A8%A1%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2018/07/28/%E6%95%B4%E6%95%B0%E8%A7%84%E5%88%92%E5%BB%BA%E6%A8%A1%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">整数规划建模技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-28 14:31:27" itemprop="dateCreated datePublished" datetime="2018-07-28T14:31:27+01:00">2018-07-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2018/07/28/%E6%95%B4%E6%95%B0%E8%A7%84%E5%88%92%E5%BB%BA%E6%A8%A1%E6%8A%80%E5%B7%A7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/28/整数规划建模技巧/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>455</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>在数学优化中，我们经常遇到需要使用特殊技巧或方法来处理的约束。本篇博客将详细介绍如何将一些常见的复杂约束转化为更易处理的形式，包括整数约束、或约束、If-Then约束、保留N个约束中的K个、函数有N个可能取值、固定支出问题，以及一般整数变量的二值表示等。这些转化技巧可以帮助我们更好地理解和解决实际问题中的优化问题，下面让我们一起逐一研究。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2018/07/28/%E6%95%B4%E6%95%B0%E8%A7%84%E5%88%92%E5%BB%BA%E6%A8%A1%E6%8A%80%E5%B7%A7/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Z.H. Fu"
+      src="/blog/images/lion.png">
+  <p class="site-author-name" itemprop="name">Z.H. Fu</p>
+  <div class="site-description" itemprop="description">Z.H. Fu的博客，主要关注数学、力学、计算机相关内容</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Z.H. Fu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">136k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">8:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://maplewizard.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+
+</body>
+</html>

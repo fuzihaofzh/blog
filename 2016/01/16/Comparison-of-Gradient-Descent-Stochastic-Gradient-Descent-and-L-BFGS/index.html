@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fuzihaofzh.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="By Z.H. Fu https:&#x2F;&#x2F;fuzihaofzh.github.io&#x2F;blog&#x2F; # Abstract This article compares four optimization approaches on the logistic regression of mnist dataset. The results of Gradient Descent(GD), Stochastic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Comparison of Gradient Descent, Stochastic Gradient Descent and L-BFGS">
+<meta property="og:url" content="http://fuzihaofzh.github.io/blog/2016/01/16/Comparison-of-Gradient-Descent-Stochastic-Gradient-Descent-and-L-BFGS/index.html">
+<meta property="og:site_name" content="切问录">
+<meta property="og:description" content="By Z.H. Fu https:&#x2F;&#x2F;fuzihaofzh.github.io&#x2F;blog&#x2F; # Abstract This article compares four optimization approaches on the logistic regression of mnist dataset. The results of Gradient Descent(GD), Stochastic">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2016-01-16T11:10:44.000Z">
+<meta property="article:modified_time" content="2023-09-03T22:16:27.666Z">
+<meta property="article:author" content="Z.H. Fu">
+<meta property="article:tag" content="optimization">
+<meta property="article:tag" content="machine learning">
+<meta property="article:tag" content="en">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://fuzihaofzh.github.io/blog/2016/01/16/Comparison-of-Gradient-Descent-Stochastic-Gradient-Descent-and-L-BFGS/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Comparison of Gradient Descent, Stochastic Gradient Descent and L-BFGS | 切问录</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">切问录</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2016/01/16/Comparison-of-Gradient-Descent-Stochastic-Gradient-Descent-and-L-BFGS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Comparison of Gradient Descent, Stochastic Gradient Descent and L-BFGS
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-01-16 11:10:44" itemprop="dateCreated datePublished" datetime="2016-01-16T11:10:44+00:00">2016-01-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/machine-learning/" itemprop="url" rel="index"><span itemprop="name">machine learning</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2016/01/16/Comparison-of-Gradient-Descent-Stochastic-Gradient-Descent-and-L-BFGS/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/16/Comparison-of-Gradient-Descent-Stochastic-Gradient-Descent-and-L-BFGS/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>6 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+# Abstract
+This article compares four optimization approaches on the logistic regression of mnist dataset. The results of Gradient Descent(GD), Stochastic Gradient Descent(SGD), L-BFGS will be discussed in detail. We proposed a Combined Stochastic Gradient Descent with L-BFGS(CL-BFGS) which is a improved version of L-BFGS and SGD. we conclude that when dataset is small, L-BFGS performans the best. If the dataset is big, SGD is recommended.
+<h1 id="dataset"><a class="markdownIt-Anchor" href="#dataset"></a> Dataset</h1>
+<p>The mnist dataset is one of the most popular dataset in machine learning especially in handwriting recognition systems. It contains 50000 pictures of 28x28 size as the training set while 10000 as validation set and 10000 as test set. The Bench mark error rate of mnist in traditional linear classification method is 7.6%[1]. However, the result improved dramatically after the deep learning method is proposed. DNN0.35%[2], CNN0.23%[3]. In this article, we only compare the optimization method in logistic regression.</p>
+<h1 id="experiment"><a class="markdownIt-Anchor" href="#experiment"></a> Experiment</h1>
+<span id="more"></span>
+<h2 id="gradient-descent"><a class="markdownIt-Anchor" href="#gradient-descent"></a> Gradient Descent</h2>
+<p>GD is the most basic optimization method in machine learning problems. The gradient is calculated after the input vector is set. The input vector changes along the gradient vector to get close to the local minimal/maximum solution during each epoch. However, GD is perhaps the worst choice to use among the methods above.</p>
+<p>##Stochastic Gradient Descent<br />
+SGD does better than GD especially when the data is large. Sometimes, the data is too large to calculate at one time. So, it’s necessary to calculate in batches. SGD divided the data into some batches, and optimization one batch at each iteration. The parameter is passed to another batch after one is finished. The advantage of this machanicse is that comparing with the GD method, at each iteration, the parameter is optimized and get better and better after the first batch. However, the parameter of the batches keeps the same during each epoch in GD.</p>
+<h2 id="l-bfgs"><a class="markdownIt-Anchor" href="#l-bfgs"></a> L-BFGS</h2>
+<p>L-BFGS stand for the Limited-memory Broyden–Fletcher–Goldfarb–Shanno. It  approximates the Broyden–Fletcher–Goldfarb–Shanno (BFGS) algorithm using a limited amount of computer memory. It can often get the better solution than the two methods mentioned above with less iteration.</p>
+<h2 id="combined-stochastic-gradient-descent-with-l-bfgs"><a class="markdownIt-Anchor" href="#combined-stochastic-gradient-descent-with-l-bfgs"></a> Combined Stochastic Gradient Descent with L-BFGS</h2>
+<p>CL-BFGS works the same as SGD. However the optimization method in each batch is substitutes with L-BFGS. It get a sharp improvement in the short term, but cost a lot of time, because it will initial L-BFGS at each epoch.</p>
+<p>#Results<br />
+The results is as follow, the error rate of each method coresponding to a epoch is listed.</p>
+<p>|epoch|GD train|GD valid|GD test|SGD train|SGD valid|SGD test|L-BFGD train|L-BFGS valid|L-BFGS test|CL-BFGS train|CL-BFGS valid|CL-BFGS test|<br />
+|-|-|-|-|-|-|-|-|-|-|-|-|<br />
+|1|0.89404|0.8998|0.8966|0.46814|0.4499|0.4605|0.74056|0.7311|0.7273|0.15724|0.144|0.1531|<br />
+|10|0.81976|0.8195|0.817|0.17524|0.1645|0.1687|0.1587|0.1396|0.1494|0.08622|0.087|0.0925|<br />
+|20|0.79408|0.7964|0.7944|0.14498|0.1355|0.1373|0.12376|0.1173|0.1215|0.07998|0.084|0.0896|<br />
+|30|0.75974|0.7627|0.7588|0.13136|0.1243|0.1249|0.10712|0.1007|0.1094|0.07684|0.0821|0.089|<br />
+|40|0.71346|0.7171|0.7145|0.1229|0.1177|0.1182|0.09956|0.0982|0.102|0.0748|0.0818|0.0878|<br />
+|50|0.66438|0.664|0.6648|0.11716|0.112|0.1129|0.09642|0.0918|0.1001|0.07376|0.0816|0.0865|<br />
+|60|0.61738|0.6167|0.6184|0.11248|0.1084|0.11|0.08876|0.0872|0.0939|0.073|0.0809|0.0862|<br />
+|70|0.57716|0.5732|0.5755|0.10916|0.1062|0.1078|0.08532|0.0848|0.0907|0.07254|0.0806|0.0866|<br />
+|80|0.54128|0.5339|0.5393|0.10592|0.1042|0.1051|0.08094|0.0823|0.0881|0.07204|0.0812|0.0863|<br />
+|90|0.50982|0.4978|0.509|0.10296|0.1018|0.1029|0.08016|0.0803|0.0879|0.0718|0.0813|0.0865|<br />
+|100|0.48344|0.47|0.4815|0.10148|0.1004|0.1073|0.0782|0.0807|0.0877|0.07146|0.0809|0.0871|<br />
+|200|0.36656|0.3436|0.3437|0.08698|0.0891|0.0916|0.0635|0.0766|0.0791|0.06916|0.0814|0.0864|<br />
+|300|0.30336|0.2822|0.2827|0.08034|0.0843|0.084|0.06106|0.0743|0.0774|0.0687|0.0821|0.0881|<br />
+|400|0.26512|0.2451|0.245|0.07718|0.0801|0.0803|0.06016|0.0749|0.077|0.0687|0.0816|0.0891|<br />
+|500|0.23936|0.2206|0.2226|0.07414|0.0778|0.0788|0.05924|0.0755|0.0775|0.0684|0.0821|0.0892|<br />
+|600|0.21986|0.2048|0.2052|0.07164|0.0771|0.0778|0.05916|0.0757|0.0782|0.06826|0.0821|0.0897|<br />
+|700|0.20634|0.1932|0.1909|0.07002|0.0762|0.077|0.05848|0.0761|0.0784|0.0683|0.082|0.0894|<br />
+|800|0.1954|0.1833|0.1794|0.06876|0.075|0.0768|0.05834|0.0754|0.0789|0.06832|0.082|0.0893|<br />
+|900|0.18702|0.1756|0.1717|0.06782|0.0741|0.0767|0.05818|0.0765|0.0797|0.06828|0.0827|0.0902|<br />
+|1000|0.17968|0.1696|0.1655|0.06694|0.0733|0.0768|0.05804|0.0763|0.0796|0.06832|0.083|0.0905|<br />
+|1100|0.17342|0.1646|0.1586|0.06642|0.073|0.0773|0.05788|0.0769|0.0802|0.06842|0.0821|0.0909|<br />
+|1200|0.16904|0.1597|0.154|0.06568|0.0728|0.0776|0.05776|0.0766|0.0794|0.06836|0.0825|0.0916|<br />
+|1300|0.16414|0.1557|0.1503|0.06528|0.0729|0.0779|0.05756|0.0766|0.08|0.06838|0.0831|0.0907|<br />
+|1400|0.15982|0.1527|0.1457|0.06468|0.0729|0.0778|0.05768|0.0767|0.0796|0.06834|0.0832|0.0906|<br />
+|1500|0.15606|0.1479|0.143|0.06442|0.0729|0.0778|0.0577|0.0771|0.0797|0.06826|0.0828|0.0916|<br />
+|1600|0.15316|0.1439|0.1397|0.06402|0.0728|0.0777|0.05732|0.0771|0.08|0.06826|0.0828|0.0918|<br />
+|1700|0.15028|0.142|0.137|0.06362|0.0732|0.0775|0.05748|0.0771|0.0798|0.06832|0.0831|0.0915|<br />
+|1800|0.1476|0.1404|0.1354|0.0634|0.0731|0.0775|0.05718|0.0764|0.0798|0.06822|0.0832|0.0909|<br />
+|1900|0.14506|0.1386|0.1334|0.06296|0.0733|0.0777|0.05706|0.0771|0.0801|0.0686|0.0839|0.0917|<br />
+|2000|0.14276|0.1367|0.1314|0.0628|0.0732|0.0776|0.05676|0.0766|0.0797|0.06826|0.0837|0.0907|<br />
+|2100|0.14062|0.1345|0.1301|0.06278|0.0734|0.0776|0.0567|0.0772|0.0802|0.06808|0.0841|0.0915|<br />
+|2200|0.13868|0.1331|0.1287|0.06258|0.0736|0.0774|0.0562|0.0769|0.08|0.0679|0.0835|0.0923|<br />
+|2300|0.13676|0.1311|0.1274|0.06232|0.0736|0.0775|0.05662|0.0778|0.0802|0.06784|0.0832|0.0922|<br />
+|2400|0.1352|0.1295|0.1266|0.06222|0.0734|0.0774|0.05618|0.0772|0.0805|0.0678|0.0831|0.0919|<br />
+|2500|0.1338|0.1287|0.1257|0.06208|0.0733|0.0778|0.0564|0.0777|0.0803|0.0678|0.0832|0.0922|<br />
+|2600|0.1325|0.127|0.1244|0.06182|0.0735|0.0776|0.0563|0.0775|0.0804|0.06788|0.0831|0.0923|<br />
+|2700|0.1314|0.1257|0.1237|0.0616|0.0736|0.0772|0.05614|0.0781|0.0804|0.06788|0.0832|0.092|<br />
+|2800|0.1301|0.1247|0.1221|0.06148|0.0737|0.0773|0.05608|0.0776|0.0804|0.06786|0.0834|0.0921|<br />
+|2900|0.12886|0.1235|0.1214|0.06132|0.0733|0.077|0.05604|0.0779|0.0807|0.06766|0.0829|0.092|<br />
+|3000|0.12766|0.1232|0.1205|0.06118|0.0733|0.0769|0.0559|0.0778|0.0807|0.06756|0.083|0.0925|<br />
+|3100|0.12696|0.1217|0.1201|0.06104|0.0733|0.0771|0.05592|0.0781|0.081|0.06754|0.083|0.0922|<br />
+|3200|0.12618|0.1211|0.1186|0.06076|0.0737|0.0769|0.05586|0.0779|0.0805|0.0676|0.083|0.0921|<br />
+|3300|0.12548|0.1208|0.1179|0.06066|0.0735|0.077|0.05586|0.0781|0.0813|0.06758|0.083|0.092|<br />
+|3400|0.12442|0.1199|0.1174|0.06054|0.0737|0.077|0.05586|0.0779|0.0808|0.06732|0.0832|0.0919|<br />
+|3500|0.12364|0.1195|0.1161|0.06048|0.0734|0.0774|0.05588|0.078|0.0814|0.06762|0.0832|0.0922|<br />
+|3600|0.12294|0.1187|0.1158|0.06046|0.0733|0.0774|0.05584|0.078|0.0807|0.06808|0.0829|0.0916|<br />
+|3700|0.12218|0.1178|0.1149|0.06032|0.0734|0.0777|0.05578|0.0779|0.0812|0.06762|0.0833|0.0925|<br />
+|3800|0.12152|0.1169|0.1142|0.06026|0.0734|0.0778|0.05578|0.0779|0.0812|0.06746|0.0835|0.0924|<br />
+|3900|0.12072|0.1158|0.1135|0.06026|0.0736|0.0775|0.05578|0.0779|0.0812|0.06808|0.0832|0.0924|<br />
+|4000|0.11994|0.1145|0.1136|0.0602|0.0735|0.0773|0.05578|0.0779|0.0812|0.06772|0.0835|0.0927|<br />
+|4100|0.11926|0.1135|0.1132|0.06018|0.0736|0.0773|0.05578|0.0779|0.0812|0.06794|0.0833|0.0924|<br />
+|4200|0.11896|0.1128|0.1122|0.06008|0.0737|0.0772|0.05578|0.0779|0.0812|0.06786|0.0838|0.0924|<br />
+|4300|0.11804|0.1125|0.1115|0.06002|0.0739|0.0774|0.05578|0.0779|0.0812|0.06776|0.0835|0.0927|<br />
+|4400|0.1173|0.1122|0.1113|0.05986|0.0738|0.0774|0.05578|0.0779|0.0812|0.06756|0.0836|0.0926|<br />
+|4500|0.11664|0.1119|0.111|0.05976|0.0737|0.0774|0.05578|0.0779|0.0812|0.06792|0.0836|0.0923|<br />
+|4600|0.11614|0.1117|0.1104|0.05972|0.0738|0.0775|0.05578|0.0779|0.0812|0.06768|0.0838|0.0925|<br />
+|4700|0.11538|0.1109|0.1096|0.05968|0.0738|0.0774|0.05578|0.0779|0.0812|0.06768|0.0839|0.0925|<br />
+|4800|0.11502|0.1107|0.1094|0.05964|0.0739|0.0774|0.05578|0.0779|0.0812|0.06778|0.0839|0.0925|<br />
+|4900|0.11434|0.1101|0.1086|0.05966|0.074|0.0775|0.05578|0.0779|0.0812|0.06762|0.0839|0.0926|<br />
+|5000|0.11382|0.1088|0.1082|0.05968|0.0741|0.0775|0.05578|0.0779|0.0812|0.06766|0.0838|0.0927|<br />
+|5100|0.1134|0.1087|0.1081|0.05964|0.0743|0.0775|0.05578|0.0779|0.0812|0.06766|0.0839|0.0928|<br />
+|5200|0.11286|0.1083|0.1077|0.05962|0.0745|0.0776|0.05578|0.0779|0.0812|0.06762|0.0838|0.0928|<br />
+|5300|0.11262|0.1083|0.1075|0.05952|0.0744|0.0778|0.05578|0.0779|0.0812|0.0676|0.0839|0.0929|<br />
+|5400|0.1121|0.1079|0.107|0.05954|0.0744|0.0777|0.05578|0.0779|0.0812|0.06766|0.0843|0.0931|<br />
+|5500|0.11164|0.1074|0.1064|0.05954|0.0745|0.0777|0.05578|0.0779|0.0812|0.06772|0.0842|0.0927|<br />
+|5600|0.11128|0.1069|0.1059|0.05956|0.0745|0.0776|0.05578|0.0779|0.0812|0.06772|0.0844|0.093|<br />
+|5700|0.111|0.1069|0.1058|0.05958|0.0747|0.0774|0.05578|0.0779|0.0812|0.06768|0.0843|0.093|<br />
+|5800|0.11032|0.1068|0.1051|0.0595|0.0745|0.0775|0.05578|0.0779|0.0812|0.06772|0.0844|0.0931|<br />
+|5900|0.10988|0.1063|0.1047|0.0595|0.0744|0.0774|0.05578|0.0779|0.0812|0.06776|0.0844|0.0931|<br />
+|6000|0.10946|0.106|0.104|0.0595|0.0744|0.0776|0.05578|0.0779|0.0812|0.06774|0.0844|0.0931|<br />
+|6100|0.1091|0.1057|0.1036|0.0595|0.0744|0.0778|0.05578|0.0779|0.0812|0.06752|0.0846|0.0932|<br />
+|6200|0.10868|0.1055|0.1036|0.05944|0.0744|0.0778|0.05578|0.0779|0.0812|0.06764|0.0845|0.0931|<br />
+|6300|0.10822|0.1055|0.1035|0.05942|0.0741|0.0778|0.05578|0.0779|0.0812|0.06762|0.0848|0.0933|<br />
+|6400|0.10794|0.105|0.103|0.05938|0.0744|0.0779|0.05578|0.0779|0.0812|0.0676|0.0845|0.0926|</p>
+<p>#Conclusion<br />
+We can see from the results above:</p>
+<ul>
+<li>In the short term, batch method works better than using the whole data. Parameter can improve during the calculation of each batch, so the error rate decrease faster.</li>
+<li>In the long term, however, using the whole data is better than the batch method, because at last the classifier should balance the error of the whole data. Using a batch to optimize the parameter will make other batches work worse.</li>
+<li>L-BFGS works better than the GD and SGD method.</li>
+<li>CL-BFGS works better than L-BFGS method in the short term.<br />
+So, if we want to handling data that can be dealt at one time, it is recommended to use L-BFGS. However, to a lot of problems that the data is too large, it’s necessary to use a batch method. CL-BFGS perform better than SGD in each epoch, but cost a lot of time. So SGD is recommended under such circumstances.</li>
+</ul>
+<p>[1] LeCun, Yann; Léon Bottou; Yoshua Bengio; Patrick Haffner (1998). “Gradient-Based Learning Applied to Document Recognition” (PDF). Proceedings of the IEEE 86 86 (11): 2278–2324. doi:10.1109/5.726791<br />
+[2] Ciresan, Claudiu Dan; Dan, Ueli Meier, Luca Maria Gambardella, and Juergen Schmidhuber (December 2010). “Deep Big Simple Neural Nets Excel on Handwritten Digit Recognition”. Neural Computation 22 (12). doi:10.1162/NECO_a_00052<br />
+[3] Cires¸an, Dan; Ueli Meier; Jürgen Schmidhuber (2012). “Multi-column deep neural networks for image classification” (PDF). 2012 IEEE Conference on Computer Vision and Pattern Recognition: 3642–3649. arXiv:1202.2745. doi:10.1109/CVPR.2012.6248110</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/optimization/" rel="tag"># optimization</a>
+              <a href="/blog/tags/machine-learning/" rel="tag"># machine learning</a>
+              <a href="/blog/tags/en/" rel="tag"># en</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2015/12/04/%E7%90%86%E8%A7%A3PCA%E5%92%8CSVD/" rel="prev" title="理解PCA和SVD">
+      <i class="fa fa-chevron-left"></i> 理解PCA和SVD
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2016/01/29/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%95%B0%E6%98%AF%E4%BB%80%E4%B9%88/" rel="next" title="矩阵的条件数是什么">
+      矩阵的条件数是什么 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#dataset"><span class="nav-number">1.</span> <span class="nav-text"> Dataset</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#experiment"><span class="nav-number">2.</span> <span class="nav-text"> Experiment</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#gradient-descent"><span class="nav-number">2.1.</span> <span class="nav-text"> Gradient Descent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#l-bfgs"><span class="nav-number">2.2.</span> <span class="nav-text"> L-BFGS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#combined-stochastic-gradient-descent-with-l-bfgs"><span class="nav-number">2.3.</span> <span class="nav-text"> Combined Stochastic Gradient Descent with L-BFGS</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Z.H. Fu"
+      src="/blog/images/lion.png">
+  <p class="site-author-name" itemprop="name">Z.H. Fu</p>
+  <div class="site-description" itemprop="description">Z.H. Fu的博客，主要关注数学、力学、计算机相关内容</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Z.H. Fu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">136k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">8:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://maplewizard.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://fuzihaofzh.github.io/blog/2016/01/16/Comparison-of-Gradient-Descent-Stochastic-Gradient-Descent-and-L-BFGS/";
+    this.page.identifier = "2016/01/16/Comparison-of-Gradient-Descent-Stochastic-Gradient-Descent-and-L-BFGS/";
+    this.page.title = "Comparison of Gradient Descent, Stochastic Gradient Descent and L-BFGS";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://maplewizard.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

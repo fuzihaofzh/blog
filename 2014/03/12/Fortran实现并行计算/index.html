@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fuzihaofzh.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="by Z.H. Fu     https:&#x2F;&#x2F;fuzihaofzh.github.io&#x2F;blog&#x2F; Fortran是人类最古老的的一门高级语言，而它的优点就在于能进行大规模的科学计算。Fortran对许多基础的数学计算都有非常多大的加速（比如对一个数组通式求正弦），因而很多科学计算程序都是用Fortran实现。而并行计算无疑能在此基础之上给Fortran一个更大的提速。本文主要讲解如何使用Fort">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fortran实现并行计算">
+<meta property="og:url" content="http://fuzihaofzh.github.io/blog/2014/03/12/Fortran%E5%AE%9E%E7%8E%B0%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="切问录">
+<meta property="og:description" content="by Z.H. Fu     https:&#x2F;&#x2F;fuzihaofzh.github.io&#x2F;blog&#x2F; Fortran是人类最古老的的一门高级语言，而它的优点就在于能进行大规模的科学计算。Fortran对许多基础的数学计算都有非常多大的加速（比如对一个数组通式求正弦），因而很多科学计算程序都是用Fortran实现。而并行计算无疑能在此基础之上给Fortran一个更大的提速。本文主要讲解如何使用Fort">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://fuzihaofzh.github.io/blog/images/fortranide.PNG">
+<meta property="og:image" content="http://fuzihaofzh.github.io/blog/images/FortranSerial.PNG">
+<meta property="og:image" content="http://fuzihaofzh.github.io/blog/images/FortranParallel.PNG">
+<meta property="article:published_time" content="2014-03-12T20:37:06.000Z">
+<meta property="article:modified_time" content="2023-09-03T22:16:27.666Z">
+<meta property="article:author" content="Z.H. Fu">
+<meta property="article:tag" content="Fortran">
+<meta property="article:tag" content="并行计算">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fuzihaofzh.github.io/blog/images/fortranide.PNG">
+
+<link rel="canonical" href="http://fuzihaofzh.github.io/blog/2014/03/12/Fortran%E5%AE%9E%E7%8E%B0%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Fortran实现并行计算 | 切问录</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">切问录</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2014/03/12/Fortran%E5%AE%9E%E7%8E%B0%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Fortran实现并行计算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-03-12 20:37:06" itemprop="dateCreated datePublished" datetime="2014-03-12T20:37:06+00:00">2014-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/Fortran/" itemprop="url" rel="index"><span itemprop="name">Fortran</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2014/03/12/Fortran%E5%AE%9E%E7%8E%B0%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/03/12/Fortran实现并行计算/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>795</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center>by Z.H. Fu</center>    
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<p>Fortran是人类最古老的的一门高级语言，而它的优点就在于能进行大规模的科学计算。Fortran对许多基础的数学计算都有非常多大的加速（比如对一个数组通式求正弦），因而很多科学计算程序都是用Fortran实现。而并行计算无疑能在此基础之上给Fortran一个更大的提速。本文主要讲解如何使用Fortran实现并行计算。</p>
+<h2 id="编译器的选择"><a class="markdownIt-Anchor" href="#编译器的选择"></a> 编译器的选择</h2>
+<p>一般来说，Fortran的编译器都是选择Intel的 Visual Fortran和VS结合实现（如果是用的Intel的CPU的话，这个加速相当完美，这是其他编译器无法超越的）。然而，由于我是要拿他来和Python做混编，Intel的编译器老是有问题。无奈之下，采用GNU的GFortran编译器。</p>
+<h2 id="ide配置"><a class="markdownIt-Anchor" href="#ide配置"></a> IDE配置</h2>
+<p>目前GFortran最流行的编译器是Code::Blocks（这不是以前搞竞赛的时候用的么。。）点开设置-编译器如下图：</p>
+<span id="more"></span>
+<p><img src="/blog/images/fortranide.PNG" alt="fortranide" /></p>
+<p>设置编译器为GNU Fortran Compiler<br />
+在Compiler Flags下面勾选上 Enable the openMP extension[-fopenmp]<br />
+在Linker settings里面添加链接库 C:\MinGW32-xy\bin\libgomp-1.dll（根据自己minGW安装位置而定）<br />
+在Other linker options选项中添加 -lgomp -lpthread两项<br />
+到此编译器的环境就配置完成了</p>
+<h2 id="程序编写"><a class="markdownIt-Anchor" href="#程序编写"></a> 程序编写</h2>
+<p>openMP通过注释的方式在fortran语句中实现并行。在<code>!$OMP PARALLEL</code>和<code>!$OMP END PARALLEL</code>之间的语句表示这里面是并行的程序块，而<code>!$OMP DO</code>和<code>!$OMP END DO</code>块表示这是一个do循环，而且这个循环需要用并行方式处理。除此之外还有其他若干种并行方式，需要的时候很容易在网上找到。<br />
+下面我们来编写一个例子：</p>
+<figure class="highlight plaintext"><figcaption><span>fortran</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">! A fortran95 program for G95</span><br><span class="line">! By Z.H. Fu</span><br><span class="line">program main</span><br><span class="line">    implicit none</span><br><span class="line">    call mainFunction(15)</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">subroutine mainFunction(cir)</span><br><span class="line">implicit none</span><br><span class="line">    integer cir</span><br><span class="line">    integer i,j,s,dosum(0:cir-1)</span><br><span class="line">    do i=0,cir-1</span><br><span class="line">        dosum(i) = 0</span><br><span class="line">    end do</span><br><span class="line">    !$OMP PARALLEL</span><br><span class="line">	!$OMP DO</span><br><span class="line">    do i = 0,cir-1</span><br><span class="line">        call indo()</span><br><span class="line">        write(*,*) i</span><br><span class="line">    end do</span><br><span class="line">    !$OMP END DO</span><br><span class="line">	!$OMP END PARALLEL</span><br><span class="line">end subroutine mainFunction</span><br><span class="line"></span><br><span class="line">subroutine indo()</span><br><span class="line">implicit none</span><br><span class="line">    integer k,thesum</span><br><span class="line">    thesum = 0</span><br><span class="line">    do k=0,100000000</span><br><span class="line">        thesum = thesum + k</span><br><span class="line">    end do</span><br><span class="line">end subroutine</span><br></pre></td></tr></table></figure>
+<p>以下是运行结果：<br />
+串行：</p>
+<p><img src="/blog/images/FortranSerial.PNG" alt="FortranSerial" /></p>
+<p>并行：</p>
+<p><img src="/blog/images/FortranParallel.PNG" alt="FortranParallel" /></p>
+<h2 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项</h2>
+<ul>
+<li>
+<p>GFortran有一个规定就是一行最多72个字符(可能是古代穿孔机只能穿那么大的纸，这个习俗保留到了现在)。因此超过72个字符编译器就不认了，如果出了莫名其妙的错误，就说明有可能超限制了。这个时候需手动换行，选一处加上&amp;然后回车，再在下一行加上&amp;</p>
+</li>
+<li>
+<p>并行计算的时候do循环间坚决杜绝线程间有交叉使用的变量。否则出现竞争的情况，结果是并行速度比串行慢的，且程序有可能每次算得的值都不一样。比如下面这个程序，并行一定比串行慢，因为重复使用了变量j。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><figcaption><span>fortran</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">   !$OMP PARALLEL</span><br><span class="line">!$OMP DO</span><br><span class="line">   do i = 0,cir-1</span><br><span class="line">       do j = 0,10000000</span><br><span class="line">           s = s+ j</span><br><span class="line">       end do</span><br><span class="line">   end do</span><br><span class="line">   !$OMP END DO</span><br><span class="line">!$OMP END PARALLEL</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Fortran/" rel="tag"># Fortran</a>
+              <a href="/blog/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/" rel="tag"># 并行计算</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2014/03/12/%E5%A4%9A%E9%A1%B9%E5%BC%8F%E5%AE%9A%E7%90%86/" rel="prev" title="多项式定理">
+      <i class="fa fa-chevron-left"></i> 多项式定理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2014/03/12/%E7%94%A8python%E7%BB%98%E5%88%B6%E6%95%B0%E5%AD%A6%E8%83%8C%E6%99%AF%E5%9B%BE/" rel="next" title="用Python绘制数学背景图">
+      用Python绘制数学背景图 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-number">1.</span> <span class="nav-text"> 编译器的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ide%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text"> IDE配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%BC%96%E5%86%99"><span class="nav-number">3.</span> <span class="nav-text"> 程序编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text"> 注意事项</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Z.H. Fu"
+      src="/blog/images/lion.png">
+  <p class="site-author-name" itemprop="name">Z.H. Fu</p>
+  <div class="site-description" itemprop="description">Z.H. Fu的博客，主要关注数学、力学、计算机相关内容</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Z.H. Fu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">136k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">8:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://maplewizard.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://fuzihaofzh.github.io/blog/2014/03/12/Fortran%E5%AE%9E%E7%8E%B0%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/";
+    this.page.identifier = "2014/03/12/Fortran实现并行计算/";
+    this.page.title = "Fortran实现并行计算";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://maplewizard.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

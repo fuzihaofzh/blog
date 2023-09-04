@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fuzihaofzh.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="By Z.H. Fu https:&#x2F;&#x2F;fuzihaofzh.github.io&#x2F;blog&#x2F; 最近学习线性代数的有关东西，在看到奇异值分解（svd）时，发现了一个在图像压缩上的应用。 奇异值分解：在线性代数中，我们知道对任意一个矩阵都存在奇异值分解，$\boldsymbol{A}&#x3D;\boldsymbol{U\Sigma V^\mathrm{T}}$，其中$\boldsymbol{U}$和$\bold">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于奇异值分解的图像压缩">
+<meta property="og:url" content="http://fuzihaofzh.github.io/blog/2014/05/07/%E5%9F%BA%E4%BA%8E%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/index.html">
+<meta property="og:site_name" content="切问录">
+<meta property="og:description" content="By Z.H. Fu https:&#x2F;&#x2F;fuzihaofzh.github.io&#x2F;blog&#x2F; 最近学习线性代数的有关东西，在看到奇异值分解（svd）时，发现了一个在图像压缩上的应用。 奇异值分解：在线性代数中，我们知道对任意一个矩阵都存在奇异值分解，$\boldsymbol{A}&#x3D;\boldsymbol{U\Sigma V^\mathrm{T}}$，其中$\boldsymbol{U}$和$\bold">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2014-05-07T12:18:35.000Z">
+<meta property="article:modified_time" content="2023-09-03T22:16:27.672Z">
+<meta property="article:author" content="Z.H. Fu">
+<meta property="article:tag" content="线性代数">
+<meta property="article:tag" content="奇异值分解">
+<meta property="article:tag" content="数据压缩">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://fuzihaofzh.github.io/blog/2014/05/07/%E5%9F%BA%E4%BA%8E%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>基于奇异值分解的图像压缩 | 切问录</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">切问录</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2014/05/07/%E5%9F%BA%E4%BA%8E%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于奇异值分解的图像压缩
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-05-07 13:18:35" itemprop="dateCreated datePublished" datetime="2014-05-07T13:18:35+01:00">2014-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">图像处理</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2014/05/07/%E5%9F%BA%E4%BA%8E%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/05/07/基于奇异值分解的图像压缩/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>591</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+最近学习线性代数的有关东西，在看到奇异值分解（svd）时，发现了一个在图像压缩上的应用。
+奇异值分解：在线性代数中，我们知道对任意一个矩阵都存在奇异值分解，$\boldsymbol{A}=\boldsymbol{U\Sigma V^\mathrm{T}}$，其中$\boldsymbol{U}$和$\boldsymbol{V}$是标准正交矩阵，而$\boldsymbol{\Sigma}$是一个对角矩阵，每一个对角元是该矩阵的一个奇异值，奇异值指的是矩阵的特征值开根号。其具体分解形式如下：
+$$
+\boldsymbol{A}=\begin{bmatrix}u_1 &u_2 &\cdots &u_m\end{bmatrix}\begin{bmatrix}\boldsymbol{D} & \boldsymbol{0} \\\boldsymbol{0} &\boldsymbol{0}\end{bmatrix}\begin{bmatrix}v_1^\mathrm{T}\\ v_2^\mathrm{T} \\ \vdots \\ u_n^\mathrm{T}\end{bmatrix}
+$$
+其中
+$$\boldsymbol{D}=\begin{bmatrix} \sigma_1 &0 &\cdots &0 \\ 0 & \sigma_2 &\vdots &0 \\ \vdots &\vdots &\ddots &\vdots \\ 0 &0 &\cdots &\sigma_r\end{bmatrix}$$
+将$\boldsymbol{A}$展开得
+$$\boldsymbol{A}=\sigma_1\boldsymbol{u_1v_1^\mathrm{T}}+\sigma_2\boldsymbol{u_2v_2^\mathrm{T}}+\cdots+\sigma_r\boldsymbol{u_rv_r^\mathrm{T}}$$
+将$\boldsymbol{A}$看成一个图像的矩阵，上面和式的每一个分量按大小排序，越大，说明越重要。而后面的权很小，可以舍去，如果只取前面k项，则数据量为$(m+n+1)k\ll mn$因而达到了压缩图像的目的。
+通过对比发现，当$k=\frac{r}{20} $时，能基本看清图像。当$k=\frac{r}{4} $时基本看不出任何区别，对于长宽相等的图像，此时数据量占原数据量的$k=\frac{2k}{n} $,在测试图像中，这个数值为0.5 。可见图像压缩的效果是显著的。
+处理结果如下：
+原始图像：
+<center>![svdori.png](/blog/images/svdori.png)</center>
+k=1:
+<center>![svdk=1.png](/blog/images/svdk=1.png)</center>
+k=2:
+<span id="more"></span>
+<center>![svdk=2.png](/blog/images/svdk=2.png)</center>
+k=3:
+<center>![svdk=3.png](/blog/images/svdk=3.png)</center>
+k=4:
+<center>![svdk=4.png](/blog/images/svdk=4.png)</center>
+k=21:
+<center>![svdk=21.png](/blog/images/svdk=21.png)</center>
+k=50:
+<center>![svdk=50.png](/blog/images/svdk=50.png)</center>
+k=105:
+<center>![svdk=105.png](/blog/images/svdk=105.png)</center>
+k=r=420:
+<center>![svdk=r=420.png](/blog/images/svdk=r=420.png)</center>
+附matlab测试代码：
+<figure class="highlight plaintext"><figcaption><span>matlab</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">SNum = 21;</span><br><span class="line">I = imread(&#x27;img.bmp&#x27;);</span><br><span class="line">h = size(I,1);</span><br><span class="line">w = size(I,2);</span><br><span class="line">R = I(:,:,1);</span><br><span class="line">G = I(:,:,2);</span><br><span class="line">B = I(:,:,3);</span><br><span class="line">debug = &#x27;RGB disposed&#x27;</span><br><span class="line">Rd = im2double(R);</span><br><span class="line">Gd = im2double(G);</span><br><span class="line">Bd = im2double(B);</span><br><span class="line">[Ur,Sr,Vr] = svd(Rd);</span><br><span class="line">[Ug,Sg,Vg] = svd(Gd);</span><br><span class="line">[Ub,Sb,Vb] = svd(Bd);</span><br><span class="line">debug = &#x27;end SVD decomposition&#x27;</span><br><span class="line">Rt = zeros(h,w);</span><br><span class="line">Gt = zeros(h,w);</span><br><span class="line">Bt = zeros(h,w);</span><br><span class="line">for i = 1:SNum</span><br><span class="line">    Rt = Rt + Sr(i,i)*Ur(:,i)*Vr(:,i)&#x27;;</span><br><span class="line">    Gt = Gt + Sg(i,i)*Ug(:,i)*Vg(:,i)&#x27;;</span><br><span class="line">    Bt = Bt + Sb(i,i)*Ub(:,i)*Vb(:,i)&#x27;;</span><br><span class="line">end</span><br><span class="line">I2(:,:,1) = im2uint8(Rt);</span><br><span class="line">I2(:,:,2) = im2uint8(Gt);</span><br><span class="line">I2(:,:,3) = im2uint8(Bt);</span><br><span class="line">imshow(I2);</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" rel="tag"># 线性代数</a>
+              <a href="/blog/tags/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3/" rel="tag"># 奇异值分解</a>
+              <a href="/blog/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/" rel="tag"># 数据压缩</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2014/04/27/%E5%9F%BA%E4%BA%8E%E5%BD%A2%E6%80%81%E5%AD%A6%E7%9A%843D%E7%82%B9%E4%BA%91%E9%87%8D%E5%BB%BA/" rel="prev" title="基于形态学的3D点云重建">
+      <i class="fa fa-chevron-left"></i> 基于形态学的3D点云重建
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2014/06/13/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E5%AF%B9%E8%AF%AF%E5%B7%AE%E7%9A%84%E4%BC%B0%E8%AE%A1%E8%A6%81%E7%94%A8%E5%B9%B3%E6%96%B9/" rel="next" title="为什么最小二乘法对误差的估计要用平方？">
+      为什么最小二乘法对误差的估计要用平方？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Z.H. Fu"
+      src="/blog/images/lion.png">
+  <p class="site-author-name" itemprop="name">Z.H. Fu</p>
+  <div class="site-description" itemprop="description">Z.H. Fu的博客，主要关注数学、力学、计算机相关内容</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Z.H. Fu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">136k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">8:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://maplewizard.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://fuzihaofzh.github.io/blog/2014/05/07/%E5%9F%BA%E4%BA%8E%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E7%9A%84%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/";
+    this.page.identifier = "2014/05/07/基于奇异值分解的图像压缩/";
+    this.page.title = "基于奇异值分解的图像压缩";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://maplewizard.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

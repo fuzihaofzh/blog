@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"fuzihaofzh.github.io","root":"/blog/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="By Z.H. Fu https:&#x2F;&#x2F;fuzihaofzh.github.io&#x2F;blog&#x2F;  Introduction Python, with its simplicity and readability, has become the language of choice for many developers. However, it has its limitations, especia">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Harnessing the Power of C++ STL in Python with CSTL">
+<meta property="og:url" content="http://fuzihaofzh.github.io/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/index.html">
+<meta property="og:site_name" content="切问录">
+<meta property="og:description" content="By Z.H. Fu https:&#x2F;&#x2F;fuzihaofzh.github.io&#x2F;blog&#x2F;  Introduction Python, with its simplicity and readability, has become the language of choice for many developers. However, it has its limitations, especia">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-04-03T16:15:56.000Z">
+<meta property="article:modified_time" content="2023-09-03T22:16:27.666Z">
+<meta property="article:author" content="Z.H. Fu">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://fuzihaofzh.github.io/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Harnessing the Power of C++ STL in Python with CSTL | 切问录</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">切问录</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Harnessing the Power of C++ STL in Python with CSTL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-04-03 17:15:56" itemprop="dateCreated datePublished" datetime="2023-04-03T17:15:56+01:00">2023-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>627</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+<h1 id="introduction"><a class="markdownIt-Anchor" href="#introduction"></a> Introduction</h1>
+<p>Python, with its simplicity and readability, has become the language of choice for many developers. However, it has its limitations, especially when it comes to memory management in multiprocessing applications. The Copy-on-Write (CoW) issue it faces often leads to memory leakage, causing the program to consume all available memory and eventually crash.</p>
+<p>CSTL is a powerful tool that brings the efficiency of the C++ Standard Template Library (STL) to Python. It provides Python developers with a way to leverage the efficiency of C++ STL containers, such as <code>std::vector</code>, <code>std::unordered_map</code>, and <code>std::unordered_set</code>, replacing their Python counterparts (<code>list</code>, <code>dict</code>, and <code>set</code>). <span id="more"></span></p>
+<h2 id="why-cstl"><a class="markdownIt-Anchor" href="#why-cstl"></a> Why CSTL?</h2>
+<p>CSTL is designed to solve the CoW issue in Python and provide a more efficient alternative for scenarios where a standard C++ container is needed. It wraps several C++ STL containers using native C++ implementation, thus avoiding the CoW issue prevalent in Python’s native <code>list</code> and <code>dict</code>.</p>
+<h2 id="installing-cstl"><a class="markdownIt-Anchor" href="#installing-cstl"></a> Installing CSTL</h2>
+<p>CSTL can be easily installed via pip using the command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install cstl</span><br></pre></td></tr></table></figure>
+<p>For users on Windows or MacOS, or for those who wish to build from source, the tool can be compiled after first installing <code>swig</code> and then cloning the repository from GitHub.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conda install swig</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/fuzihaofzh/cstl.git</span><br><span class="line"><span class="built_in">cd</span> cstl</span><br><span class="line">./build.sh</span><br><span class="line">python setup.py install --single-version-externally-managed --record files.txt</span><br></pre></td></tr></table></figure>
+<h2 id="using-cstl"><a class="markdownIt-Anchor" href="#using-cstl"></a> Using CSTL</h2>
+<p>CSTL provides a seamless way to convert Python objects into CSTL objects and vice versa. Here’s an example:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cstl</span><br><span class="line"></span><br><span class="line"><span class="comment"># Directly convert containers from python</span></span><br><span class="line">v = cstl.frompy(&#123;<span class="string">&quot;1&quot;</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="string">&quot;2&quot;</span>:[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]&#125;) <span class="comment"># convert python object to cstl object</span></span><br><span class="line">v[<span class="string">&quot;1&quot;</span>][<span class="number">2</span>] = <span class="number">10</span> <span class="comment"># access cstl object</span></span><br><span class="line">pv = cstl.topy(v) <span class="comment"># convert cstl object to python object </span></span><br><span class="line"><span class="built_in">print</span>(pv) <span class="comment"># prints: &#123;&#x27;1&#x27;: [1, 2, 10], &#x27;2&#x27;: [4, 5, 6]&#125;</span></span><br></pre></td></tr></table></figure>
+<p>CSTL allows you to specify the type of the container, like <code>cstl.VecInt()</code> for a vector of integers or <code>cstl.VecMapIntFloat()</code> for a vector of maps with integer keys and float values. You can manipulate these containers just like you would with their Python counterparts.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vec = cstl.VecInt([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>])</span><br><span class="line"><span class="built_in">print</span>(vec[<span class="number">2</span>])      <span class="comment"># prints: 3</span></span><br><span class="line"></span><br><span class="line">vec[<span class="number">2</span>] = <span class="number">1</span></span><br><span class="line"><span class="built_in">print</span>(vec[<span class="number">2</span>])      <span class="comment"># prints: 1</span></span><br><span class="line"></span><br><span class="line">vec.append(<span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(vec[-<span class="number">1</span>])     <span class="comment"># prints: 10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># User should explicitly convert std::vector into list as follows:</span></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">list</span>(vec))   <span class="comment"># prints: [1, 2, 1, 4, 5, 6, 7, 10] </span></span><br><span class="line"></span><br><span class="line">vmif = cstl.VecMapIntFloat([&#123;<span class="number">1</span>:<span class="number">3.4</span>&#125;,&#123;<span class="number">4</span>:<span class="number">5.5</span>&#125;])</span><br><span class="line"><span class="built_in">print</span>(vmif[<span class="number">0</span>][<span class="number">1</span>])  <span class="comment"># prints: 3.4000000953674316</span></span><br></pre></td></tr></table></figure>
+<h2 id="supported-data-types-and-containers"><a class="markdownIt-Anchor" href="#supported-data-types-and-containers"></a> Supported Data Types and Containers</h2>
+<p>CSTL supports a variety of data types as elements in the containers, including <code>int</code>, <code>std::int64</code>, <code>std::string</code>, <code>float</code>, <code>double</code>, and <code>bool</code>. It also supports nested containers up to three levels deep, with the option to support more layers by modifying the source code.</p>
+<h2 id="performance-comparison"><a class="markdownIt-Anchor" href="#performance-comparison"></a> Performance Comparison</h2>
+<p>While CSTL may be slower than Python’s native list and numpy for basic tasks, it outperforms them in specific tasks. Here is a comparison table showcasing the performance of CSTL against Python, numpy, and pytorch:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:right">python</th>
+<th style="text-align:right">numpy</th>
+<th style="text-align:right">cstl</th>
+<th style="text-align:right">pytorch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">add1</td>
+<td style="text-align:right">0.19</td>
+<td style="text-align:right">0.28</td>
+<td style="text-align:right">0.911</td>
+<td style="text-align:right">4.714</td>
+</tr>
+<tr>
+<td style="text-align:left">read</td>
+<td style="text-align:right">0.161</td>
+<td style="text-align:right">0.2</td>
+<td style="text-align:right">0.526</td>
+<td style="text-align:right">1.033</td>
+</tr>
+<tr>
+<td style="text-align:left">sliceread</td>
+<td style="text-align:right">0.327</td>
+<td style="text-align:right">0.264</td>
+<td style="text-align:right">0.683</td>
+<td style="text-align:right">1.381</td>
+</tr>
+<tr>
+<td style="text-align:left">append</td>
+<td style="text-align:right">0.204</td>
+<td style="text-align:right">&gt;10</td>
+<td style="text-align:right">0.351</td>
+<td style="text-align:right">&gt;10</td>
+</tr>
+<tr>
+<td style="text-align:left">pop</td>
+<td style="text-align:right">&gt;10</td>
+<td style="text-align:right">&gt;10</td>
+<td style="text-align:right">0.595</td>
+<td style="text-align:right">&gt;10</td>
+</tr>
+</tbody>
+</table>
+<p>Most importantly, CSTL solves the CoW issue and provides more data structures than numpy, making it a valuable tool for Python developers.</p>
+<h2 id="conclusion"><a class="markdownIt-Anchor" href="#conclusion"></a> Conclusion</h2>
+<p>CSTL is a powerful tool that allows Python developers to leverage the efficiency and flexibility of C++ STL. It provides a solution to the CoW issue and offers more data structures than numpy. If you’re a Python developer dealing with memory-intensive programs or if you’re simply looking for a more efficient alternative to Python’s native containers, CSTL is definitely worth a look.</p>
+<p>Check out the <a target="_blank" rel="noopener" href="https://github.com/fuzihaofzh/cstl">CSTL repository</a> on GitHub for more information and to start using it in your projects.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/blog/2022/11/24/Sparse-Fine-tuned-Model-An-Unified-View-of-Parameter-Efficient-Models/" rel="prev" title="Sparse Fine-tuned Model -- An Unified View of Parameter-Efficient Models">
+      <i class="fa fa-chevron-left"></i> Sparse Fine-tuned Model -- An Unified View of Parameter-Efficient Models
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/blog/2023/09/02/Overcoming-the-Dimensionality-Problem-with-Monte-Carlo-Integration/" rel="next" title="Overcoming the Dimensionality Problem with Monte Carlo Integration">
+      Overcoming the Dimensionality Problem with Monte Carlo Integration <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#introduction"><span class="nav-number">1.</span> <span class="nav-text"> Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#why-cstl"><span class="nav-number">1.1.</span> <span class="nav-text"> Why CSTL?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#installing-cstl"><span class="nav-number">1.2.</span> <span class="nav-text"> Installing CSTL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#using-cstl"><span class="nav-number">1.3.</span> <span class="nav-text"> Using CSTL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#supported-data-types-and-containers"><span class="nav-number">1.4.</span> <span class="nav-text"> Supported Data Types and Containers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#performance-comparison"><span class="nav-number">1.5.</span> <span class="nav-text"> Performance Comparison</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#conclusion"><span class="nav-number">1.6.</span> <span class="nav-text"> Conclusion</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Z.H. Fu"
+      src="/blog/images/lion.png">
+  <p class="site-author-name" itemprop="name">Z.H. Fu</p>
+  <div class="site-description" itemprop="description">Z.H. Fu的博客，主要关注数学、力学、计算机相关内容</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Z.H. Fu</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="Symbols count total">136k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="Reading time total">8:16</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/blog/js/utils.js"></script>
+
+<script src="/blog/js/motion.js"></script>
+
+
+<script src="/blog/js/schemes/muse.js"></script>
+
+
+<script src="/blog/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
+
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://maplewizard.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://fuzihaofzh.github.io/blog/2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/";
+    this.page.identifier = "2023/04/03/Harnessing-the-Power-of-C-STL-in-Python-with-CSTL/";
+    this.page.title = "Harnessing the Power of C++ STL in Python with CSTL";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://maplewizard.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

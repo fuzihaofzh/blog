@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://fuzihaofzh.github.io/blog/2022/11/28/SAM-Find-the-Approximate-Most-Important-Parameters-to-Fine-Tune/</loc>
+    
+    <lastmod>2023-09-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://fuzihaofzh.github.io/blog/2022/11/24/Sparse-Fine-tuned-Model-An-Unified-View-of-Parameter-Efficient-Models/</loc>
     
     <lastmod>2023-09-04</lastmod>
@@ -715,7 +724,7 @@
 
   <url>
     <loc>http://fuzihaofzh.github.io/blog</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -723,399 +732,399 @@
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%8E%86%E5%8F%B2/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%9B%BD%E5%8F%B2%E5%A4%A7%E7%BA%B2/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%9C%89%E9%99%90%E5%85%83/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%8F%98%E5%88%86%E6%B3%95/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/C/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/template/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%A8%A1%E6%9D%BF/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/optimization/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/machine-learning/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/en/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/Fortran/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/RNN/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/Theano/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/Python/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/matplotlib/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/LaTeX/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/Emacs/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%A6%82%E7%8E%87-%E8%B4%9D%E5%8F%B6%E6%96%AF/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E4%BA%92%E4%BF%A1%E6%81%AF/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%A6%82%E7%8E%87/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/Bernstein%E5%A4%9A%E9%A1%B9%E5%BC%8F/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/Bezier%E6%9B%B2%E7%BA%BF/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%A0%B7%E6%9D%A1%E6%9B%B2%E7%BA%BF/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/Logistic/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%83%AF%E6%80%A7%E7%9F%A9/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%95%B0%E6%8D%AE%E5%8E%8B%E7%BC%A9/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E7%82%B9%E4%BA%91%E9%87%8D%E5%BB%BA/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%BD%A2%E6%80%81%E5%AD%A6/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%8A%9B%E5%AD%A6/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/beamer/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%A0%BC%E6%9E%97%E5%85%AC%E5%BC%8F/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%95%A3%E5%BA%A6%E5%AE%9A%E7%90%86/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%A0%BC%E6%9E%97%E6%81%92%E7%AD%89%E5%BC%8F/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E7%A7%AF%E5%88%86/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%BE%AE%E7%A7%AF%E5%88%86/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%AD%A3%E5%AE%9A%E7%9F%A9%E9%98%B5/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E9%9B%85%E5%85%8B%E6%AF%94%E7%9F%A9%E9%98%B5/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%B5%B7%E6%A3%AE%E7%9F%A9%E9%98%B5%EF%BC%8C%E6%9C%80%E5%B0%8F%E4%BD%9C%E7%94%A8%E9%87%8F/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/chrome/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%BC%A0%E9%87%8F%EF%BC%8C%E5%BA%A6%E9%87%8F%E5%BC%A0%E9%87%8F/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E5%A5%87%E5%BC%82%E5%80%BC/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E6%9D%A1%E4%BB%B6%E6%95%B0/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/%E7%BB%84%E5%90%88%E6%95%B0/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/marked/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/markdown/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/tags/mathJax/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -1124,140 +1133,140 @@
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E5%8E%86%E5%8F%B2/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E6%9C%89%E9%99%90%E5%85%83/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/C/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/machine-learning/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/Fortran/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/High-Dimensional-Probability/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E5%8A%9B%E5%AD%A6/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/Python/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E8%BF%90%E7%BB%B4/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/Linux/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E6%95%B0%E5%AD%A6%E6%9D%82%E8%B0%88/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E6%95%B0%E5%AD%A6/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E7%89%A9%E7%90%86%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/Intuitive-Math/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/LaTeX/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/%E5%B7%A5%E5%85%B7%E5%BA%94%E7%94%A8/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://fuzihaofzh.github.io/blog/categories/Hexo/</loc>
-    <lastmod>2023-09-04</lastmod>
+    <lastmod>2023-09-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

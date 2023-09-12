@@ -190,6 +190,123 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2016/02/10/C-%E5%AE%9E%E7%8E%B0%E6%83%B0%E6%80%A7%E6%B1%82%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/lion.png">
+      <meta itemprop="name" content="Z.H. Fu">
+      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="切问录">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/2016/02/10/C-%E5%AE%9E%E7%8E%B0%E6%83%B0%E6%80%A7%E6%B1%82%E5%80%BC/" class="post-title-link" itemprop="url">C++实现惰性求值</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-02-10 23:04:31" itemprop="dateCreated datePublished" datetime="2016-02-10T23:04:31+00:00">2016-02-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/blog/2016/02/10/C-%E5%AE%9E%E7%8E%B0%E6%83%B0%E6%80%A7%E6%B1%82%E5%80%BC/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/02/10/C-实现惰性求值/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>771</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>3 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center>By Z.H. Fu</center>
+<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
+惰性求值在解释性语言中有着广泛的应用，通过惰性求值，延迟了临时变量的计算，避免了无谓的变量产生，是实现大规模计算的重要的优化手段。然而，很多惰性求值的应用仅限于一些脚本语言，本文介绍了如何用C++实现惰性求值。
+<h2 id="什么是惰性求值"><a class="markdownIt-Anchor" href="#什么是惰性求值"></a> 什么是惰性求值？</h2>
+<p>我们先来看下面一段Python程序，在python中输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = [1,2,3]</span><br><span class="line">b = [4,5,6]</span><br><span class="line">c = a + b</span><br><span class="line">for i in c:</span><br><span class="line">    print c</span><br></pre></td></tr></table></figure>
+<p>这个程序很快执行，但是试想一下，如果a和b都是很大的List，那么生成中间变量，再去遍历他将是一个极为浪费时间的做法，我们希望c只在求值（即print）的时候再来计算，这样能节省出产生临时变量的时间。</p>
+<h2 id="c实现"><a class="markdownIt-Anchor" href="#c实现"></a> C++实现</h2>
+<p>我们以矩阵类来展示惰性求值的实现方法。首先我们有一个共同的基类：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/2016/02/10/C-%E5%AE%9E%E7%8E%B0%E6%83%B0%E6%80%A7%E6%B1%82%E5%80%BC/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2016/01/29/%E7%9F%A9%E9%98%B5%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%95%B0%E6%98%AF%E4%BB%80%E4%B9%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1257,134 +1374,6 @@ $$\arctan'x = \frac{1}{1+x^2}$$
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://fuzihaofzh.github.io/blog/2015/03/15/%E5%85%B3%E4%BA%8Ee%E7%9A%84%E7%90%86%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/lion.png">
-      <meta itemprop="name" content="Z.H. Fu">
-      <meta itemprop="description" content="Z.H. Fu的博客，主要关注数学、力学、计算机相关内容">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="切问录">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/2015/03/15/%E5%85%B3%E4%BA%8Ee%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">关于e的理解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-03-15 13:59:08" itemprop="dateCreated datePublished" datetime="2015-03-15T13:59:08+00:00">2015-03-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-09-03 23:16:27" itemprop="dateModified" datetime="2023-09-03T23:16:27+01:00">2023-09-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/Intuitive-Math/" itemprop="url" rel="index"><span itemprop="name">Intuitive Math</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/blog/2015/03/15/%E5%85%B3%E4%BA%8Ee%E7%9A%84%E7%90%86%E8%A7%A3/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/03/15/关于e的理解/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>5 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <center>By Z.H. Fu</center>
-<center><a href="https://fuzihaofzh.github.io/blog/">https://fuzihaofzh.github.io/blog/</a></center>
-## 利息增长模型
-　　在上中学学习对数的时候，我们就学到了一个叫做e的东西($e\approx 2.71828$)，后来又学了e的定义，($e=\lim \limits_{n\to  \infty}(1+\frac{1}{n})^n$),但是始终缺乏一个直观的理解，为什么e要这么定义，为什么到处都会有他的身影。后来在研究一个增长模型的时候，重新研究了下e的定义，找到了几个关于它的直观的理解。
-　　首先研究这么一个模型，你往银行里存钱，假设银行的利息按年结算，银行每年的利息与你在银行存的总额和时间成正比（即利息=现金总量x利率x时间差），设存入金额为1，利率为p，那么第二年，你在银行的金额增加到了$1+p$,第三年，你在银行的钱将有$(1+p)(1+p)$,第$n+1$年将有$(1+p)^n$注意这里的时间差都是以年来计算，假设，我们遇到了一个很有耐心的银行，它愿意每天给你结算利息，我们来计算每一天的资金量，第二天的资金量=$1+\frac{p}{365}$(利息=总金（1）x利率（p）x时间（$\frac{1}{365}$）)，第365天的资金量为$(1+\frac{p}{365})^{364}$，有没有看到e的雏形？我们再假设银行每秒钟都会算一次利息，一年有n秒，那么，按照之前给出的方法，我们就有年末的总金额=$(1+\frac{p}{n})^n$当n趋于无穷大时，即银行每时每刻都会给你结算利息，即等于$e^p$，也就是说，复利的极限竟然和e有关系！
-## 泰勒级数的直观理解
-　　我们换种思路再来思考这个问题，这次我们用利滚利的方式来思考，你的本金在银行放了一年，这些本金产生的利息为设每一时刻的本金为$c(t)=1$，那么在一年中第t时刻我们拥有的利息为：
-$$p_0(t)=\int_0^t p c(t)dt=\int_0^t p dt = pt$$
-因而一年下来的利息为p。但是事情还没有结束，由这些利息产生的利息还没有被计算，那么利息产生的利息在t时刻应该为：
-$$p_1(t)=\int_0^t p p_0(t)dt=\int_0^t p^2 dt = \frac{p^2t^2}{2}$$
-同样的道理，利息的利息，也会产生利息，这个利息又等于：
-$$p_2(t)=\int_0^t p p_1(t)dt=\int_0^t p\frac{p^2t^2}{2} dt = \frac{p^3t^3}{3\times 2}$$
-依次地推，我们有利息的利息的利息产生的利息在t时刻为：
-$$p_3(t)=\frac{p^4t^4}{4!}$$
-而这种递推是无穷的，我们把这些本金和利息加载一起就是我们最后拥有的资金，总数为：
-$$\begin{align}S&= 1+p_0+p_1+\cdots+p_n+\cdots \\ &=\frac{p^0}{0!}+\frac{p^1}{1!}+\cdots +\frac{p^n}{n!}+\cdots \\ &=e^p \end{align}$$
-其中，t全部被带换成了1。这正是e的泰勒级数展开。
-　　由此可见，我们通过一种模型导出了e的两种表示方式，那么这两种表示方式有没有什么联系呢？实际上，我们讲e的极限式展开，有：
-$$\begin{align}e^p&=\lim \limits_{n\to  \infty}(1+\frac{p}{n})^n\\&=(1+\frac{p}{n})(1+\frac{p}{n})(1+\frac{p}{n})\cdots\end{align}$$
-我们来观察其中的每一项:
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/blog/2015/03/15/%E5%85%B3%E4%BA%8Ee%E7%9A%84%E7%90%86%E8%A7%A3/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1456,7 +1445,7 @@ $$\begin{align}e^p&=\lim \limits_{n\to  \infty}(1+\frac{p}{n})^n\\&=(1+\frac{p}{
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1505,12 +1494,12 @@ $$\begin{align}e^p&=\lim \limits_{n\to  \infty}(1+\frac{p}{n})^n\\&=(1+\frac{p}{
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="Symbols count total">137k</span>
+    <span title="Symbols count total">138k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="Reading time total">8:19</span>
+    <span title="Reading time total">8:20</span>
 </div>
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a>
   </div>
